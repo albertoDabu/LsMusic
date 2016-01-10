@@ -3,11 +3,11 @@ Practica final hipermedia
 
 Desarrolladores:
 
-Alberto de Bofarull Olano - ls28517
+-Alberto de Bofarull Olano  (ls28517)
 
-Andres Biarge - ls28729
+-Andres Biarge  (ls28729)
 
-Roberto de Arquer - ls28909
+-Roberto de Arquer  (ls28909)
 
 
 
