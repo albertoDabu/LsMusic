@@ -1,0 +1,213 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>La Salle Music | Recommender</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="bootstrap/css/rober.css" rel="stylesheet">
+    <link href="bootstrap/fonts/font-awesome.css" rel="stylesheet">
+    <link href="bootstrap/fonts/font-awesome.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    
+  </head>
+
+  <body>
+
+    <nav class="navbar-inverse navbar-fixed-top">
+      <div class="container allnav">
+        <div class="navbar-header">
+          <div class="navbar-brand"></div>
+        </div>
+
+        <div class="navbar-form navbar-right">
+          <!--<form class="navbar-form navbar-right">-->
+            <div class="form-group">
+              <input type="text" placeholder="Artist, album, song" class="form-control" id="search-text">
+            </div>
+            <button class="btn btn-success" id="search-button"><i class="glyphicon glyphicon-search"></i></span></button>
+          <!--</form>-->
+        </div>
+      </div>
+    </nav>
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="container">
+      <div class="arrow_box">
+        <h2 class="logo">RECOMMENDED</h2>
+      </div>
+    </div>
+
+    <div class="jumbotron">
+      <div class="row">
+        <div class="col-md-3 col-sm-3 col-xs-3 rad" id="hover0">
+          <div class="card">
+            <img class="card-img-top hover_img" data-src="holder.js/100px180/?text=Image cap" alt="Image cap [100%x180]" src="" data-holder-rendered="true">
+            <div class="card-block">
+              <p class="card-text nombreArtista"></p>
+              <p class="card-text nombreCancion"></p>
+            </div>
+          </div>
+        </div> 
+        <div class="col-md-3 col-sm-3 col-xs-3 rad" id="hover1">
+          <div class="card">
+            <img class="card-img-top hover_img" data-src="holder.js/100px180/?text=Image cap" alt="Image cap [100%x180]" src="" data-holder-rendered="true">
+            <div class="card-block">
+              <p class="card-text nombreArtista"></p>
+              <p class="card-text nombreCancion"></p>
+            </div>
+          </div>
+        </div> 
+        <div class="col-md-3 col-sm-3 col-xs-3 rad" id="hover2">
+          <div class="card">
+            <img class="card-img-top hover_img" data-src="holder.js/100px180/?text=Image cap" alt="Image cap [100%x180]" src="" data-holder-rendered="true">
+            <div class="card-block">
+              <p class="card-text nombreArtista"></p>
+              <p class="card-text nombreCancion"></p>
+            </div>
+          </div>
+        </div> 
+        <div class="col-md-3 col-sm-3 col-xs-3 rad" id="hover3">
+          <div class="card">
+            <img class="card-img-top hover_img" data-src="holder.js/100px180/?text=Image cap" alt="Image cap [100%x180]" src="" data-holder-rendered="true">
+            <div class="card-block">
+              <p class="card-text nombreArtista"></p>
+              <p class="card-text nombreCancion"></p>
+            </div>
+          </div>
+        </div> 
+        <div class="col-md-3 col-sm-3 col-xs-3 rad" id="hover4">
+          <div class="card">
+            <img class="card-img-top hover_img" data-src="holder.js/100px180/?text=Image cap" alt="Image cap [100%x180]" src="" data-holder-rendered="true">
+            <div class="card-block">
+              <p class="card-text nombreArtista"></p>
+              <p class="card-text nombreCancion"></p>
+            </div>
+          </div>
+        </div>   
+      </div>
+    </div>
+
+    <div class="col-sm-12 col-lg-12 col-xs-12 contenido">
+      <div id="busqueda-container" class="col-sm-7 col-lg-8 col-xs-12">
+        <ul class="list-group col-sm-12 col-lg-12 col-xs-12">
+          <li class="list-group-item col-sm-12 col-lg-12 col-xs-12 styled_title">
+            <h3>SEARCH RESULT</h3>
+          </li>
+        </ul>
+        <!-- CANCIONES DE BÚSQUEDA -->
+        <ul class="list-group col-sm-12 col-lg-12 col-xs-12" id="busquedaView">
+          <li class="list-group-item col-sm-12 col-lg-12 col-xs-12 busquedaView-element" id="busquedaView-template">
+            <!--imagen-->
+            <img src="" class="col-sm-4 col-lg-4 col-xs-4 image-element" style="padding:0px;">
+            <!--texto-->
+            <div class="col-sm-4 col-lg-4 col-xs-8">
+              <p class="col-sm-12 col-lg-12 col-xs-12 nombreCancion"></p>
+              <p class="col-sm-12 col-lg-12 col-xs-12 nombreAlbum"></p>
+              <p class="col-sm-12 col-lg-12 col-xs-12 nombreArtista"></p>
+            </div>
+            <!--botones-->
+            <div class="col-sm-4 col-lg-4 col-xs-12 play-style">
+              <a href="#!" class="col-sm-6 col-lg-6 col-xs-6 final">
+                <span class="glyphicon glyphicon-play-circle play/pause-button" data-play="-1"></span> 
+              </a>
+              <a href="#!" class="col-sm-6 col-lg-6 col-xs-6 resize final">
+                <span class="glyphicon glyphicon-star aux-button" data-button="0" data-qFavorito="-1"></span>  
+              </a>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <!-- FAVORITOS + WEB DESIGNERS -->
+      <div class="col-sm-5 col-lg-4 col-xs-12">
+        <!-- SÓLO FAVORITOS -->
+        <div class="col-sm-12 col-lg-12 col-xs-12">
+          <ul class="list-group col-sm-12 col-lg-12 col-xs-12">
+            <li class="list-group-item col-sm-12 col-lg-12 col-xs-12 styled_title">
+              <h3>FAVOURITES</h3>
+            </li>
+          </ul>
+          <ul class="list-group col-sm-12 col-lg-12 col-xs-12" id="favoritosView">
+            <li class="list-group-item col-sm-12 col-lg-12 col-xs-12" id="favoritosView-template">
+              <!--imagen-->
+              <img src="" class="col-sm-4 col-lg-4 col-xs-4 image-element" style="padding:0px;">
+              <!--texto-->
+              <div class="col-sm-6 col-lg-6 col-xs-8">
+                <p class="col-sm-12 col-lg-12 col-xs-12 nombreCancion"></p>
+                <p class="col-sm-12 col-lg-12 col-xs-12 nombreAlbum"></p>
+                <p class="col-sm-12 col-lg-12 col-xs-12 nombreArtista"></p>
+              </div>
+              <!--botones-->
+              <div class="col-sm-2 col-lg-2 col-xs-12 play-style">
+                <a href="#!" class="col-sm-6 col-lg-6 col-xs-6">
+                  <span class="glyphicon glyphicon-play-circle play/pause-button col-sm-12 col-lg-12 col-xs-12" data-play="-1"></span> 
+                </a>
+                <a href="#!" class="col-sm-6 col-lg-6 col-xs-6">
+                  <span class="glyphicon glyphicon-trash aux-button col-sm-12 col-lg-12 col-xs-12" data-button="1" data-clicked="0" data-qFavorito="-1"></span>  
+                </a>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <!-- SÓLO WEB DESIGNERS -->
+        <div class="col-sm-12 col-lg-12 col-xs-12">
+          <ul class="list-group col-sm-12 col-lg-12 col-xs-12">
+            <li class="list-group-item col-sm-12 col-lg-12 col-xs-12 styled_title">
+              <h3>WEB DESIGNERS</h3>
+            </li>
+          </ul>
+
+          <ul class="list-group col-sm-12 col-lg-12 col-xs-12" id="designersView">
+            <li class="list-group-item col-sm-12 col-lg-12 col-xs-12">
+              <!--imagen-->
+              <img src="img/designer3.jpg" class="col-sm-4 col-lg-4 col-xs-8 image-element" style="padding:0px;">
+              <!--texto-->
+              <div class="col-sm-6 col-lg-6 col-xs-4">
+                <p class="col-sm-12 col-lg-12 col-xs-12 nombreCancion">Roberto de Arquer</p>
+                <p class="col-sm-12 col-lg-12 col-xs-12 nombreCancion">Front End</p>
+              </div>
+              <!--botones-->
+            </li>
+            <li class="list-group-item col-sm-12 col-lg-12 col-xs-12">
+              <!--imagen-->
+              <img src="img/designer1.jpg" class="col-sm-4 col-lg-4 col-xs-8 image-element" style="padding:0px;">
+              <!--texto-->
+              <div class="col-sm-6 col-lg-6 col-xs-4">
+                <p class="col-sm-12 col-lg-12 col-xs-12 nombreCancion">Andrés Biarge</p>
+                <p class="col-sm-12 col-lg-12 col-xs-12 nombreCancion">Back End</p>
+              </div>
+              <!--botones-->
+            </li>
+            <li class="list-group-item col-sm-12 col-lg-12 col-xs-12">
+              <!--imagen-->
+              <img src="img/designer2.jpg" class="col-sm-4 col-lg-4 col-xs-8 image-element">
+              <!--texto-->
+              <div class="col-sm-6 col-lg-6 col-xs-4">
+                <p class="col-sm-12 col-lg-12 col-xs-12 nombreCancion">Alberto de Bofarull</p>
+                <p class="col-sm-12 col-lg-12 col-xs-12 nombreCancion">Back End</p>
+              </div>
+              <!--botones-->
+            </li>
+          </ul>
+        </div>
+
+
+      </div>
+    </div>
+    <a class="cielo" id="cielo"><img src="img/fav.png" class"s" id="cielo" title="Ir arriba" style="width: 3%; min-width: 30px;position: fixed; bottom: 10px; left: 95.5%;" /></a>
+
+    <audio id="audioPlayer">
+    </audio>
+  
+
+</body>
+  <script src="javascript/listView.js"></script>
+</html>
