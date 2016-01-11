@@ -430,6 +430,7 @@ h3{
 		margin-left: -36px;
 	}
 }
+
 @media only screen and (max-width: 420px) {
 	.final{
 		color: white;
@@ -441,7 +442,8 @@ h3{
 		left: 75%;
 	}
 	#cielo{
-		left: 90% !important;
+		left: 88% !important;
+		min-width: 30px !important;
 	}
 	.nombreCancion, .nombreAlbum, .nombreArtista{
 		font-family: 'Montserrat', sans-serif;

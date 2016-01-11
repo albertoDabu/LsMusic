@@ -27,9 +27,8 @@ $("#cielo").click(function () {
         scrollTop: $("#favoritosView").offset().top -120
     }, 500);
 });
-
 //tema de los recomendados
-function recomendados() {
+function recomendados () {
 	try {
 		var xhr = new XMLHttpRequest();
 		xhr.addEventListener("load", function () {
@@ -47,14 +46,82 @@ function recomendados() {
 			}	
 		});
 		xhr.open("GET", "http://ws.audioscrobbler.com/2.0/?method=chart.getTopTracks&limit=5&format=json&api_key=9d87d6c9c3e84d9e663fb108741bc07d");
-		xhr.send();
-		//capturamos la respuesta
-		
+		xhr.send();		
 	}catch (error) {
 		console.log(error);
 	}
 }
-recomendados();
+/*
+var json = JSON.parse(this.responseText);
+var aux = json.artists[q];
+document.getElementById("hover"+q).getElementsByClassName("hover_img")[0].src = aux.images[1].url;
+document.getElementById("hover"+q).getElementsByClassName("nombreArtista")[0].innerHTML = aux.name;
+document.getElementById("hover"+q).getElementsByClassName("nombreCancion")[0].innerHTML = "popularity:"+aux.popularity;
+ aux.album.images[1].url, aux.name, aux.album.name, aux.artists[0].name, aux.preview_url, "0", aux.artists[0].id
+*/
+function truncateText(str) {
+	var truncated;
+	var maxLength = 20;
+    if (str.length > maxLength) {
+        truncated = str.substring(0,maxLength) + "...";
+    }else {
+    	truncated = str;
+    }
+    return truncated;
+}
+function relacionadosTraper (q, artista) {
+	var xhr = new XMLHttpRequest();
+	xhr.addEventListener("load", function () {
+		var json = JSON.parse(this.responseText);
+		var aux = json.toptracks.track[0];
+		if (aux.image[3]["#text"].length < 4) {
+			document.getElementById("hover"+q).getElementsByClassName("hover_img")[0].src = "img/nota_imagen.png";
+		}else {
+			document.getElementById("hover"+q).getElementsByClassName("hover_img")[0].src = aux.image[3]["#text"];
+		}
+
+		document.getElementById("hover"+q).getElementsByClassName("nombreArtista")[0].innerHTML = truncateText(aux.artist.name);
+		document.getElementById("hover"+q).getElementsByClassName("nombreCancion")[0].innerHTML = truncateText(aux.name);
+	});
+	//xhr.open("GET", "https://api.spotify.com/v1/search?q="+artista+"&type=track");
+	xhr.open("GET", "http://ws.audioscrobbler.com/2.0/?method=artist.getTopTracks&artist="+artista+"&limit=5&format=json&api_key=9d87d6c9c3e84d9e663fb108741bc07d");
+	xhr.send();
+}
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
+function peticionRelacionadosYPintar (q, idArtista) {
+	var xhr = new XMLHttpRequest();
+	xhr.addEventListener("load", function () {
+		var json = JSON.parse(this.responseText);
+		var aux = json.artists[q];
+		relacionadosTraper(q, aux.name);
+	});
+	xhr.open("GET", "https://api.spotify.com/v1/artists/"+idArtista+"/related-artists");
+	xhr.send();
+}
+
+function artistasRecomendados () {
+	var idArtista;
+	for (var i = 0; i < 5; i++) {
+		try {
+			//cogemos el idArtista de uno de los favoritos escogidos aleatoriamente
+			idArtista = localStorage.getItem(getRandomInt(0, localStorage.length)).split("@")[5];
+			//hacemos la petición a Spotify y pintar en el hoverView
+			peticionRelacionadosYPintar(i, idArtista);
+		}catch(err) {
+			console.log(err);
+		}
+	}
+}
+
+if (localStorage.getItem(0) == null || localStorage.getItem(0) == "undefined" || localStorage.getItem(0) == "null") {
+	recomendados();
+}else {
+	artistasRecomendados();
+}
 //***************************************EMPIEZA LA LÓGICA**********************************
 /*
 irá por todos los botones play/pause-button y los pondrá en el estado inicial
@@ -91,13 +158,17 @@ img->ruta de la imagen
 nombreCancion, artista, album->no hace falta explicarlo
 song->ruta de la cacnión
 */
-function insertarElemento (tipo, img, nombreCancion, album, artista, song, qFavorito) {
+function insertarElemento (tipo, img, nombreCancion, album, artista, song, qFavorito, idArtist) {
 	//hacemos visibles las plantillas
 	aux_busqueda_template.style.display = "inline";
 	aux_favoritos_template.style.display = "inline";
 	//según el tipo de plantilla
 	var template = document.getElementById(tipo+"-template");
 	var nuevo = template.cloneNode(true);
+	if (tipo === "busquedaView") {
+		//la idArtist
+		nuevo.dataset.idArtist = idArtist;
+	}
 	//la imagen
 	var imagen = nuevo.getElementsByClassName("image-element")[0];//nuevo.childNodes[3];
 	imagen.src = img;
@@ -143,9 +214,9 @@ function insertarElemento (tipo, img, nombreCancion, album, artista, song, qFavo
 		//botón de estrella
 		btnAux.addEventListener("click", function () {
 			//insertamos en la BBDD
-			btnAux.dataset.qFavorito = insertarFavorito (img, nombreCancion, album, artista, song);
+			btnAux.dataset.qFavorito = insertarFavorito (img, nombreCancion, album, artista, song, idArtist);
 			//lo añadimos a la vista de favoritos
-			insertarElemento("favoritosView", img, nombreCancion, album, artista, song, btnAux.dataset.qFavorito);
+			insertarElemento("favoritosView", img, nombreCancion, album, artista, song, btnAux.dataset.qFavorito, idArtist);
 		});
 	}
 	//lo añadimos al DOM
@@ -164,7 +235,7 @@ function callBackSpotify (tipo, contexto) {
 		var aux;
 		for (var i = 0; i < json.tracks.items.length; i++) {
 			aux = json.tracks.items[i];
-			insertarElemento(tipo, aux.album.images[1].url, aux.name, aux.album.name, aux.artists[0].name, aux.preview_url);
+			insertarElemento(tipo, aux.album.images[1].url, aux.name, aux.album.name, aux.artists[0].name, aux.preview_url, "0", aux.artists[0].id);
 		}	
 	}catch (err) {
 		console.log(err);
@@ -190,9 +261,9 @@ function listarCanciones (string, tipo) {
 	}
 }
 
-function insertarFavorito (img, nombreCancion, nombreAlbum, nombreArtista, song) {
+function insertarFavorito (img, nombreCancion, nombreAlbum, nombreArtista, song, idArtist) {
 	if (typeof(Storage) !== "undefined") {
-		var aux = img+"@"+nombreCancion+"@"+nombreAlbum+"@"+nombreArtista+"@"+song;
+		var aux = img+"@"+nombreCancion+"@"+nombreAlbum+"@"+nombreArtista+"@"+song+"@"+idArtist;
 		localStorage.setItem(localStorage.length.toString(), aux);
 		return (localStorage.length-1).toString();
 	}else {
@@ -213,7 +284,7 @@ function cargarFavoritos (tipo) {
 			try {
 				aux = localStorage.getItem(localStorage.key(i));
 				split = aux.split("@");
-				insertarElemento (tipo, split[0], split[1], split[2], split[3], split[4], i);
+				insertarElemento (tipo, split[0], split[1], split[2], split[3], split[4], i, split[5]);
 			}catch (err) {
 				console.log("---->"+i);
 			}
