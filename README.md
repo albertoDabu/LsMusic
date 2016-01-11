@@ -1,6 +1,7 @@
 # LsMusic
-Practica final hipermedia
+## Practica final hipermedia
 
+<<<<<<< HEAD
 Desarrolladores:
 
 -Alberto de Bofarull Olano  (ls28517)
@@ -12,6 +13,19 @@ Desarrolladores:
 
 
 Descripción de la aplicación:
+=======
+####Desarrolladores:
+
+* Alberto de Bofarull Olano  (ls28517)
+
+* Andres Biarge  (ls28729)
+
+* Roberto de Arquer  (ls28909)
+
+---
+
+#### Descripción de la aplicación:
+>>>>>>> origin/master
 
 La Salle Recomender es un recomendador de música. Permite buscar canciones y visualizar una vista previa de las mismas para hacerse una idea. Es meramente consultiva de manera que el usuario puede después, a partir de consultar esas preview, buscar la canción original.
 
