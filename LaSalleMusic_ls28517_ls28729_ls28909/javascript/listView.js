@@ -29,22 +29,32 @@ $("#cielo").click(function () {
 });
 
 //tema de los recomendados
-try {
-	var xhr = new XMLHttpRequest();
-	xhr.open("GET", "http://ws.audioscrobbler.com/2.0/?method=chart.getTopTracks&limit=5&format=json&api_key=9d87d6c9c3e84d9e663fb108741bc07d", false);
-	xhr.send();
-	//capturamos la respuesta
-	var json = JSON.parse(xhr.responseText);
-	var aux;
-	for (var i = 0; i < json.tracks.track.length; i++) {
-		aux = json.tracks.track[i];
-		document.getElementById("hover"+i).getElementsByClassName("hover_img")[0].src = aux.image[3]["#text"];
-		document.getElementById("hover"+i).getElementsByClassName("nombreArtista")[0].innerHTML = aux.artist.name;
-		document.getElementById("hover"+i).getElementsByClassName("nombreCancion")[0].innerHTML = aux.name;
-	}	
-}catch (error) {
-	console.log(error);
+function recomendados() {
+	try {
+		var xhr = new XMLHttpRequest();
+		xhr.addEventListener("load", function () {
+			try {
+				var json = JSON.parse(this.responseText);
+				var aux;
+				for (var i = 0; i < json.tracks.track.length; i++) {
+					aux = json.tracks.track[i];
+					document.getElementById("hover"+i).getElementsByClassName("hover_img")[0].src = aux.image[3]["#text"];
+					document.getElementById("hover"+i).getElementsByClassName("nombreArtista")[0].innerHTML = aux.artist.name;
+					document.getElementById("hover"+i).getElementsByClassName("nombreCancion")[0].innerHTML = aux.name;
+				}
+			}catch (err) {
+				console.log(err);
+			}	
+		});
+		xhr.open("GET", "http://ws.audioscrobbler.com/2.0/?method=chart.getTopTracks&limit=5&format=json&api_key=9d87d6c9c3e84d9e663fb108741bc07d");
+		xhr.send();
+		//capturamos la respuesta
+		
+	}catch (error) {
+		console.log(error);
+	}
 }
+recomendados();
 //***************************************EMPIEZA LA LÓGICA**********************************
 /*
 irá por todos los botones play/pause-button y los pondrá en el estado inicial
@@ -145,6 +155,21 @@ function insertarElemento (tipo, img, nombreCancion, album, artista, song, qFavo
 	aux_busqueda_template.style.display = "none";
 	aux_favoritos_template.style.display = "none";
 }
+
+function callBackSpotify (tipo, contexto) {
+	//capturamos la respuesta
+	try {
+	//console.log(contexto.responseText);
+		var json = JSON.parse(contexto.responseText);
+		var aux;
+		for (var i = 0; i < json.tracks.items.length; i++) {
+			aux = json.tracks.items[i];
+			insertarElemento(tipo, aux.album.images[1].url, aux.name, aux.album.name, aux.artists[0].name, aux.preview_url);
+		}	
+	}catch (err) {
+		console.log(err);
+	}
+}
 /*
 string->string de petición (lo del search)
 tipo->hoverView-template/listView-template
@@ -155,15 +180,11 @@ function listarCanciones (string, tipo) {
 	if (string === undefined) return;
 	try {
 		var xhr = new XMLHttpRequest();
-		xhr.open("GET", "https://api.spotify.com/v1/search?q="+string+"&type=track", false);
+		xhr.addEventListener("load", function () {
+			callBackSpotify(tipo, this);
+		});
+		xhr.open("GET", "https://api.spotify.com/v1/search?q="+string+"&type=track");
 		xhr.send();
-		//capturamos la respuesta
-		var json = JSON.parse(xhr.responseText);
-		var aux;
-		for (var i = 0; i < json.tracks.items.length; i++) {
-			aux = json.tracks.items[i];
-			insertarElemento(tipo, aux.album.images[1].url, aux.name, aux.album.name, aux.artists[0].name, aux.preview_url);
-		}	
 	}catch (error) {
 		console.log(error);
 	}
@@ -218,7 +239,6 @@ document.getElementById("search-button").addEventListener("click", function () {
 		    template.nextSibling.parentNode.removeChild(template.nextSibling);
 		}
 		if (document.getElementById("search-text").value) {
-			console.log("asdfasfasdf");
 			listarCanciones(document.getElementById("search-text").value.toString(), "busquedaView");
 		}
 		aux_busqueda_template.style.display = "none";

@@ -34,7 +34,7 @@
             <div class="form-group">
               <input type="text" placeholder="Artist, album, song" class="form-control" id="search-text">
             </div>
-            <button class="btn btn-success" id="search-button"><i class="glyphicon glyphicon-search"></i></span></button>
+            <button class="btn btn-success" id="search-button"><i class="glyphicon glyphicon-search"></i></button>
           <!--</form>-->
         </div>
       </div>
@@ -50,7 +50,7 @@
       <div class="row">
         <div class="col-md-3 col-sm-3 col-xs-3 rad" id="hover0">
           <div class="card">
-            <img class="card-img-top hover_img" data-src="holder.js/100px180/?text=Image cap" alt="Image cap [100%x180]" src="" data-holder-rendered="true">
+            <img class="card-img-top hover_img" data-src="holder.js/100px180/?text=Image cap" src="img/aux_img.png" alt="Image cap [100%x180]" data-holder-rendered="true">
             <div class="card-block">
               <p class="card-text nombreArtista"></p>
               <p class="card-text nombreCancion"></p>
@@ -59,7 +59,7 @@
         </div> 
         <div class="col-md-3 col-sm-3 col-xs-3 rad" id="hover1">
           <div class="card">
-            <img class="card-img-top hover_img" data-src="holder.js/100px180/?text=Image cap" alt="Image cap [100%x180]" src="" data-holder-rendered="true">
+            <img class="card-img-top hover_img" data-src="holder.js/100px180/?text=Image cap" src="img/aux_img.png" alt="Image cap [100%x180]" data-holder-rendered="true">
             <div class="card-block">
               <p class="card-text nombreArtista"></p>
               <p class="card-text nombreCancion"></p>
@@ -68,7 +68,7 @@
         </div> 
         <div class="col-md-3 col-sm-3 col-xs-3 rad" id="hover2">
           <div class="card">
-            <img class="card-img-top hover_img" data-src="holder.js/100px180/?text=Image cap" alt="Image cap [100%x180]" src="" data-holder-rendered="true">
+            <img class="card-img-top hover_img" data-src="holder.js/100px180/?text=Image cap" src="img/aux_img.png" alt="Image cap [100%x180]" data-holder-rendered="true">
             <div class="card-block">
               <p class="card-text nombreArtista"></p>
               <p class="card-text nombreCancion"></p>
@@ -77,7 +77,7 @@
         </div> 
         <div class="col-md-3 col-sm-3 col-xs-3 rad" id="hover3">
           <div class="card">
-            <img class="card-img-top hover_img" data-src="holder.js/100px180/?text=Image cap" alt="Image cap [100%x180]" src="" data-holder-rendered="true">
+            <img class="card-img-top hover_img" data-src="holder.js/100px180/?text=Image cap" src="img/aux_img.png" alt="Image cap [100%x180]" data-holder-rendered="true">
             <div class="card-block">
               <p class="card-text nombreArtista"></p>
               <p class="card-text nombreCancion"></p>
@@ -86,7 +86,7 @@
         </div> 
         <div class="col-md-3 col-sm-3 col-xs-3 rad" id="hover4">
           <div class="card">
-            <img class="card-img-top hover_img" data-src="holder.js/100px180/?text=Image cap" alt="Image cap [100%x180]" src="" data-holder-rendered="true">
+            <img class="card-img-top hover_img" data-src="holder.js/100px180/?text=Image cap" src="img/aux_img.png" alt="Image cap [100%x180]" data-holder-rendered="true">
             <div class="card-block">
               <p class="card-text nombreArtista"></p>
               <p class="card-text nombreCancion"></p>
@@ -105,9 +105,9 @@
         </ul>
         <!-- CANCIONES DE BÚSQUEDA -->
         <ul class="list-group col-sm-12 col-lg-12 col-xs-12" id="busquedaView">
-          <li class="list-group-item col-sm-12 col-lg-12 col-xs-12 busquedaView-element" id="busquedaView-template">
+          <li class="list-group-item col-sm-12 col-lg-12 col-xs-12 busquedaView-element" id="busquedaView-template" style="background-color:transparent">
             <!--imagen-->
-            <img src="" class="col-sm-4 col-lg-4 col-xs-4 image-element" style="padding:0px;">
+            <img class="col-sm-4 col-lg-4 col-xs-4 image-element" src="img/aux_img.png" style="padding:0px;" alt="imagen relevante">
             <!--texto-->
             <div class="col-sm-4 col-lg-4 col-xs-8">
               <p class="col-sm-12 col-lg-12 col-xs-12 nombreCancion"></p>
@@ -138,7 +138,7 @@
           <ul class="list-group col-sm-12 col-lg-12 col-xs-12" id="favoritosView">
             <li class="list-group-item col-sm-12 col-lg-12 col-xs-12" id="favoritosView-template">
               <!--imagen-->
-              <img src="" class="col-sm-4 col-lg-4 col-xs-4 image-element" style="padding:0px;">
+              <img class="col-sm-4 col-lg-4 col-xs-4 image-element" src="img/aux_img.png" style="padding:0px;" alt="imagen relevante">
               <!--texto-->
               <div class="col-sm-6 col-lg-6 col-xs-8">
                 <p class="col-sm-12 col-lg-12 col-xs-12 nombreCancion"></p>
@@ -168,31 +168,31 @@
           <ul class="list-group col-sm-12 col-lg-12 col-xs-12" id="designersView">
             <li class="list-group-item col-sm-12 col-lg-12 col-xs-12">
               <!--imagen-->
-              <img src="img/designer3.jpg" class="col-sm-4 col-lg-4 col-xs-8 image-element" style="padding:0px;">
+              <img src="img/designer3.jpg" class="col-sm-4 col-lg-4 col-xs-8 image-element" style="padding:0px;" alt="imagen relevante">
               <!--texto-->
               <div class="col-sm-6 col-lg-6 col-xs-4">
                 <p class="col-sm-12 col-lg-12 col-xs-12 nombreCancion">Roberto de Arquer</p>
-                <p class="col-sm-12 col-lg-12 col-xs-12 nombreCancion">Front End</p>
+                <!--<p class="col-sm-12 col-lg-12 col-xs-12 nombreCancion">css/html</p>-->
               </div>
               <!--botones-->
             </li>
             <li class="list-group-item col-sm-12 col-lg-12 col-xs-12">
               <!--imagen-->
-              <img src="img/designer1.jpg" class="col-sm-4 col-lg-4 col-xs-8 image-element" style="padding:0px;">
+              <img src="img/designer1.jpg" class="col-sm-4 col-lg-4 col-xs-8 image-element" style="padding:0px;" alt="imagen relevante">
               <!--texto-->
               <div class="col-sm-6 col-lg-6 col-xs-4">
                 <p class="col-sm-12 col-lg-12 col-xs-12 nombreCancion">Andrés Biarge</p>
-                <p class="col-sm-12 col-lg-12 col-xs-12 nombreCancion">Back End</p>
+                <!--<p class="col-sm-12 col-lg-12 col-xs-12 nombreCancion">js/html</p>-->
               </div>
               <!--botones-->
             </li>
             <li class="list-group-item col-sm-12 col-lg-12 col-xs-12">
               <!--imagen-->
-              <img src="img/designer2.jpg" class="col-sm-4 col-lg-4 col-xs-8 image-element">
+              <img src="img/designer2.jpg" class="col-sm-4 col-lg-4 col-xs-8 image-element" alt="imagen relevante">
               <!--texto-->
               <div class="col-sm-6 col-lg-6 col-xs-4">
                 <p class="col-sm-12 col-lg-12 col-xs-12 nombreCancion">Alberto de Bofarull</p>
-                <p class="col-sm-12 col-lg-12 col-xs-12 nombreCancion">Back End</p>
+                <!--<p class="col-sm-12 col-lg-12 col-xs-12 nombreCancion">js/html</p>-->
               </div>
               <!--botones-->
             </li>
@@ -202,12 +202,11 @@
 
       </div>
     </div>
-    <a class="cielo" id="cielo"><img src="img/fav.png" class"s" id="cielo" title="Ir arriba" style="width: 3%; min-width: 30px;position: fixed; bottom: 10px; left: 95.5%;" /></a>
+    <a class="cielo" id="cielo"><img src="img/fav.png" title="Ir arriba" style="width: 3%; min-width: 30px;position: fixed; bottom: 10px; left: 95.5%;" alt="imagen relevante"/></a>
 
     <audio id="audioPlayer">
     </audio>
   
-
+    <script type="text/javascript" src="javascript/listView.js"></script>
 </body>
-  <script src="javascript/listView.js"></script>
 </html>
