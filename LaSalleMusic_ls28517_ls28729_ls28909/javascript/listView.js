@@ -1,6 +1,6 @@
 //***************************************INICIALIZACIONES*********************************
 //tema reordenar la BBDD
-window.onload = function () {
+function alCargar () {
 	//queremos reordenar el localStorage
 	if (typeof(Storage) !== "undefined") {
 		var aux;
@@ -14,6 +14,7 @@ window.onload = function () {
 		}
 	}
 }
+window.onload = alCargar;
 window.location.href = "#!";
 //tema de las templates, que no salgan
 var aux_busqueda_template = document.getElementById("busquedaView-template");
@@ -72,16 +73,23 @@ function truncateText(str) {
 function relacionadosTraper (q, artista) {
 	var xhr = new XMLHttpRequest();
 	xhr.addEventListener("load", function () {
-		var json = JSON.parse(this.responseText);
-		var aux = json.toptracks.track[0];
-		if (aux.image[3]["#text"].length < 4) {
-			document.getElementById("hover"+q).getElementsByClassName("hover_img")[0].src = "img/nota_imagen.png";
-		}else {
-			document.getElementById("hover"+q).getElementsByClassName("hover_img")[0].src = aux.image[3]["#text"];
-		}
+		try {
+			var json = JSON.parse(this.responseText);
+			var aux = json.toptracks.track[0];
+			if (aux.image[3]["#text"].length < 4) {
+				document.getElementById("hover"+q).getElementsByClassName("hover_img")[0].src = "img/nota_imagen.png";
+			}else {
+				document.getElementById("hover"+q).getElementsByClassName("hover_img")[0].src = aux.image[3]["#text"];
+			}
 
-		document.getElementById("hover"+q).getElementsByClassName("nombreArtista")[0].innerHTML = truncateText(aux.artist.name);
-		document.getElementById("hover"+q).getElementsByClassName("nombreCancion")[0].innerHTML = truncateText(aux.name);
+			document.getElementById("hover"+q).getElementsByClassName("nombreArtista")[0].innerHTML = truncateText(aux.artist.name);
+			document.getElementById("hover"+q).getElementsByClassName("nombreCancion")[0].innerHTML = truncateText(aux.name);
+		}catch (err) {
+			console.log("traper");
+			document.getElementById("hover"+q).getElementsByClassName("hover_img")[0].src = "img/traper.jpeg";
+			document.getElementById("hover"+q).getElementsByClassName("nombreArtista")[0].innerHTML = truncateText("Oliver Heldens");
+			document.getElementById("hover"+q).getElementsByClassName("nombreCancion")[0].innerHTML = truncateText("Shades of grey");
+		}
 	});
 	//xhr.open("GET", "https://api.spotify.com/v1/search?q="+artista+"&type=track");
 	xhr.open("GET", "http://ws.audioscrobbler.com/2.0/?method=artist.getTopTracks&artist="+artista+"&limit=5&format=json&api_key=9d87d6c9c3e84d9e663fb108741bc07d");
@@ -117,11 +125,15 @@ function artistasRecomendados () {
 	}
 }
 
-if (localStorage.getItem(0) == null || localStorage.getItem(0) == "undefined" || localStorage.getItem(0) == "null") {
-	recomendados();
-}else {
-	artistasRecomendados();
+function mirarRecomendados () {
+	alCargar();
+	if (localStorage.getItem(0) == null || localStorage.getItem(0) == "undefined" || localStorage.getItem(0) == "null") {
+		recomendados();
+	}else {
+		artistasRecomendados();
+	}
 }
+mirarRecomendados();
 //***************************************EMPIEZA LA LÓGICA**********************************
 /*
 irá por todos los botones play/pause-button y los pondrá en el estado inicial
@@ -209,6 +221,7 @@ function insertarElemento (tipo, img, nombreCancion, album, artista, song, qFavo
 			}
 			quitarFavorito(qFavorito);
 			nuevo.remove();
+			mirarRecomendados();
 		});
 	}else if (btnAux.dataset.button === "0") {
 		//botón de estrella
@@ -217,6 +230,7 @@ function insertarElemento (tipo, img, nombreCancion, album, artista, song, qFavo
 			btnAux.dataset.qFavorito = insertarFavorito (img, nombreCancion, album, artista, song, idArtist);
 			//lo añadimos a la vista de favoritos
 			insertarElemento("favoritosView", img, nombreCancion, album, artista, song, btnAux.dataset.qFavorito, idArtist);
+			mirarRecomendados();
 		});
 	}
 	//lo añadimos al DOM
